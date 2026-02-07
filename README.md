@@ -1,53 +1,94 @@
-**#🏗️ The Architect**
+# 🏗️ The AI Architect-RAG
 
-Enterprise RAG Agent with Self-Correction
+# Enterprise RAG Agent with Self-Correction
 
 The Architect is an enterprise-grade Retrieval-Augmented Generation (RAG) system designed to answer questions from large documents reliably, safely, and transparently.
 
 Unlike basic RAG demos, this project implements multi-agent self-correction, source-aware answers, and automatic web fallback, closely mirroring how production AI systems are built in real companies.
 
-🚀 Key Features
+## 🚀 Key Features
 
-📄 Document-based Question Answering
+**📄 Document-based Question Answering**
+
 Answers questions strictly from a provided PDF (NVIDIA Annual Report) using semantic search.
 
-🧠 Multi-Query Retrieval
+**🧠 Multi-Query Retrieval**
+
 Automatically rewrites user queries into multiple semantic variants to improve recall.
 
-🔁 Multi-Agent Self-Correction Pipeline
+**🔁 Multi-Agent Self-Correction Pipeline**
 
-Answer Agent – generates an initial response
+* Answer Agent – generates an initial response
+* Critic Agent – evaluates correctness, grounding, and clarity
+* Refiner Agent – improves the answer based on critic feedback
 
-Critic Agent – evaluates correctness, grounding, and clarity
+**🛑 Hallucination Control**
 
-Refiner Agent – improves the answer based on critic feedback
+* Verifies whether answers are supported by document context
+* Responds with “I don’t know based on the document” when appropriate
 
-🛑 Hallucination Control
+**🌐 Web Search Fallback**
 
-Verifies whether answers are supported by document context
+* Automatically detects external questions
+* Uses web search (Tavily API) when the document does not contain the answer
+* Clearly separates document-based vs web-based answers
 
-Responds with “I don’t know based on the document” when appropriate
+**🧾 Source-Aware Responses**
 
-🌐 Web Search Fallback
+* Adds page-level citations for document answers
+* Never attaches document sources to web-based answers
 
-Automatically detects external questions
-
-Uses web search (Tavily API) when the document does not contain the answer
-
-Clearly separates document-based vs web-based answers
-
-🧾 Source-Aware Responses
-
-Adds page-level citations for document answers
-
-Never attaches document sources to web-based answers
-
-💬 Conversational Memory
+**💬 Conversational Memory**
 
 Maintains short-term chat history for follow-up questions
 
-⚙️ FastAPI Deployment
+**⚙️ FastAPI Deployment**
 
-Exposes the agent via a clean /ask API endpoint
+* Exposes the agent via a clean /ask API endpoint
+* Ready for frontend integration or production deployment
 
-Ready for frontend integration or production deployment
+## 🧠 System Architecture
+
+User Query
+ ➡️
+Query Rewriter (Multi-query retrieval)
+   ➡️
+Vector Database (ChromaDB + PDF embeddings)
+   ➡️
+Answer Agent (LLM)
+   ➡️
+Critic Agent (quality & grounding check)
+   ➡️
+Refiner Agent (self-correction)
+   ➡️
+Verifier (hallucination guard)
+
+   ⬇️
+   
+Decision Router
+
+   ├─ Document Answer + Page Sources
+   
+   └─ Web Search Fallback + Web Answer
+   
+ ⬇️
+ 
+Final Response + Memory
+
+## 🛠️ Tech Stack
+
+* LLM: Groq (LLaMA 3.x)
+
+* Embeddings: Sentence-Transformers (MiniLM)
+* Vector Database: ChromaDB
+
+* Web Search: Tavily API
+
+* Backend: FastAPI
+
+* Language: Python
+
+* Deployment Environment: GitHub Codespaces
+
+
+
