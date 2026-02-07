@@ -1,5 +1,5 @@
+**#🏗️ The Architect**
 
-#🏗️ The Architect 
 Enterprise RAG Agent with Self-Correction
 
 The Architect is an enterprise-grade Retrieval-Augmented Generation (RAG) system designed to answer questions from large documents reliably, safely, and transparently.
